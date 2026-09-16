@@ -1,0 +1,22 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import MainCategoryLanding from "../../components/MainCategoryLanding.astro";
+import { lifestyleCategories } from "../../data/categoryStructure.js";
+
+export function getStaticPaths() {
+  return lifestyleCategories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+---
+<SiteLayout title={category.name} description={category.tagline} active="lifestyle">
+  <MainCategoryLanding
+    category={category}
+    sectionLabel="Lifestyle"
+    sectionHref="/lifestyle/"
+    basePath="/lifestyle/"
+  />
+</SiteLayout>

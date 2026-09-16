@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CategoryIndex from "../../components/CategoryIndex.astro";
+import { holidayCategories } from "../../data/categoryStructure.js";
+---
+<SiteLayout title="Holidays & Seasons" active="holidays">
+  <CategoryIndex
+    kicker="Explore"
+    heading="Holidays & Seasons"
+    intro="Seasonal celebrations, thoughtful hosting, and fresh ideas for every holiday and season."
+    heroImg="https://images.unsplash.com/photo-1509557965875-b88c97052f0e?auto=format&fit=crop&w=1600&q=80"
+    basePath="/holidays/"
+    breadcrumbLabel="Holidays & Seasons"
+    items={holidayCategories}
+  />
+</SiteLayout>

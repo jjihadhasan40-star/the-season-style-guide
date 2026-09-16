@@ -1,0 +1,208 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getCollection } from "astro:content";
+import { holidaySeasons, lifestyleTopics, specialDays } from "../../data/topics.js";
+
+const posts = await getCollection("blog");
+
+const categoryEntries = [
+  {
+    title: "Holidays & Seasons",
+    description: "Year-round ideas for holidays, seasonal decorating, food, and style.",
+    href: "/holidays-seasons/",
+    terms: "holidays seasons",
+  },
+  {
+    title: "Special Days",
+    description: "Thoughtful ideas for milestones, gatherings, gifts, and celebrations.",
+    href: "/special-days/",
+    terms: "special days",
+  },
+  {
+    title: "Lifestyle",
+    description: "Practical inspiration for home, food, fashion, and everyday living.",
+    href: "/lifestyle/",
+    terms: "lifestyle",
+  },
+];
+
+const topicEntries = [
+  ...holidaySeasons.map((topic) => ({
+    title: topic.name,
+    description: topic.tagline,
+    href: `/holidays-seasons/${topic.slug}/`,
+    terms: [
+      topic.name,
+      topic.tagline,
+      topic.intro,
+      ...topic.sections.flatMap((section) => [
+        section.heading,
+        ...section.items.flatMap((item) => [item.title, item.desc]),
+      ]),
+    ].join(" "),
+  })),
+  ...specialDays.map((topic) => ({
+    title: topic.name,
+    description: topic.tagline,
+    href: `/special-days/${topic.slug}/`,
+    terms: [
+      topic.name,
+      topic.tagline,
+      topic.intro,
+      ...topic.sections.flatMap((section) => [
+        section.heading,
+        ...section.items.flatMap((item) => [item.title, item.desc]),
+      ]),
+    ].join(" "),
+  })),
+  ...lifestyleTopics.map((topic) => ({
+    title: topic.name,
+    description: topic.tagline,
+    href: `/lifestyle/${topic.slug}/`,
+    terms: [
+      topic.name,
+      topic.tagline,
+      topic.intro,
+      ...topic.sections.flatMap((section) => [
+        section.heading,
+        ...section.items.flatMap((item) => [item.title, item.desc]),
+      ]),
+    ].join(" "),
+  })),
+];
+
+const articleEntries = posts.map((post) => ({
+  title: post.data.title,
+  description: post.data.description,
+  href: `/blog/${post.id}/`,
+  terms: [post.data.title, post.data.description].join(" "),
+}));
+
+const entries = [...categoryEntries, ...topicEntries, ...articleEntries];
+const query = Astro.url.searchParams.get("q")?.trim() ?? "";
+---
+
+<SiteLayout title={query ? `Search: ${query}` : "Search"}>
+  <section class="page-hero search-hero">
+    <div class="page-hero-content">
+      <p class="kicker">Explore the Guide</p>
+      <h1>Search</h1>
+      <p>Find ideas across holidays, special days, lifestyle, and the seasons in between.</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="section search-section">
+      <form class="search-page-form" action="/search/" method="get">
+        <label for="search-page-input">Search the guide</label>
+        <div class="search-page-controls">
+          <input
+            id="search-page-input"
+            name="q"
+            type="search"
+            value={query}
+            placeholder="Try Halloween, tablescapes, or spring"
+            autocomplete="off"
+          />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </form>
+
+      <div id="search-results" aria-live="polite">
+        <p class="search-message">Enter a keyword to search the guide.</p>
+      </div>
+    </section>
+  </main>
+</SiteLayout>
+
+<script define:vars={{ entries }}>
+  const searchInput = document.querySelector('#search-page-input');
+  const resultsContainer = document.querySelector('#search-results');
+  const query = new URLSearchParams(window.location.search).get('q')?.trim() ?? '';
+  const normalize = (value) => value.replace(/\s+/g, ' ').trim().toLocaleLowerCase();
+  const normalizedQuery = normalize(query);
+  const results = normalizedQuery
+    ? entries.filter((entry) => normalize(entry.terms).includes(normalizedQuery))
+    : [];
+
+  if (searchInput) searchInput.value = query;
+  if (query) document.title = `Search: ${query} - The Season & Style Guide`;
+
+  if (resultsContainer && query && results.length === 0) {
+    const message = document.createElement('p');
+    message.className = 'search-message';
+    message.textContent = `No results found for ${query}. Try a broader keyword.`;
+    resultsContainer.replaceChildren(message);
+  }
+
+  if (resultsContainer && results.length > 0) {
+    const summary = document.createElement('p');
+    summary.className = 'search-summary';
+    summary.textContent = `Results for ${query}`;
+
+    const list = document.createElement('div');
+    list.className = 'search-result-list';
+
+    results.forEach((result) => {
+      const link = document.createElement('a');
+      link.className = 'search-result';
+      link.href = result.href;
+
+      const title = document.createElement('h2');
+      title.textContent = result.title;
+      const description = document.createElement('p');
+      description.textContent = result.description;
+      const action = document.createElement('span');
+      action.className = 'text-link';
+      action.textContent = 'Explore ->';
+
+      link.append(title, description, action);
+      list.append(link);
+    });
+
+    resultsContainer.replaceChildren(summary, list);
+  }
+</script>
+
+<style>
+  .search-hero { min-height: 360px; }
+  .search-section { max-width: 900px; }
+  .search-page-form { margin-bottom: 3rem; }
+  .search-page-form label {
+    display: block;
+    margin-bottom: 0.65rem;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .search-page-controls { display: flex; gap: 0.75rem; }
+  .search-page-controls input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid rgba(42, 35, 32, 0.18);
+    border-radius: 6px;
+    padding: 0.95rem 1rem;
+    color: var(--ink);
+    background: var(--cream-card);
+    font: inherit;
+  }
+  .search-page-controls input:focus { outline: 2px solid var(--burnt-orange); outline-offset: 2px; }
+  .search-summary { color: var(--ink-soft); margin: 0 0 1.2rem; }
+  .search-result-list { display: grid; gap: 1rem; }
+  .search-result {
+    display: block;
+    padding: 1.4rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: var(--cream-card);
+    box-shadow: 0 18px 36px -26px rgba(42, 23, 8, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .search-result:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+  .search-result h2 { font-size: 1.35rem; margin-bottom: 0.4rem; }
+  .search-result p { color: var(--ink-soft); line-height: 1.6; margin: 0 0 0.7rem; }
+  .search-message { color: var(--ink-soft); line-height: 1.7; margin: 0; }
+  @media (max-width: 640px) {
+    .search-page-controls { flex-direction: column; align-items: stretch; }
+    .search-page-controls .btn { justify-content: center; }
+  }
+</style>

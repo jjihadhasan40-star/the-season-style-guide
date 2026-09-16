@@ -1,0 +1,72 @@
+---
+// src/components/CategoryIndex.astro
+// Renders a section landing page (Holidays & Seasons, Special Days, Lifestyle)
+import { onImgError } from "../utils/images.js";
+import ArticleCard from "./ArticleCard.astro";
+
+export interface Item { slug: string; name: string; tagline: string; heroImg: string; }
+export interface Props {
+  kicker: string;
+  heading: string;
+  intro: string;
+  heroImg: string;
+  basePath: string; // e.g. "/holidays-seasons/"
+  items: Item[];
+  breadcrumbLabel: string;
+  showItems?: boolean;
+  posts?: Array<{
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      date: Date;
+      category: string;
+      image: string;
+    };
+  }>;
+}
+const { kicker, heading, intro, heroImg, basePath, items, breadcrumbLabel, showItems = true, posts = [] } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-media" aria-hidden="true">
+    <img src={heroImg} alt="" onerror={onImgError} />
+    <div class="page-hero-scrim"></div>
+  </div>
+  <div class="page-hero-content">
+    <p class="kicker">{kicker}</p>
+    <h1>{heading}</h1>
+  </div>
+</section>
+
+<main>
+  <section class="section">
+    <p class="intro-copy">{intro}</p>
+    {showItems && (
+      <div class="index-grid">
+        {items.map((item) => (
+          <a class="index-card" href={`${basePath}${item.slug}/`}>
+            <span class="index-card-media">
+              <img src={item.heroImg} alt={item.name} loading="lazy" onerror={onImgError} />
+            </span>
+            <span class="index-card-body">
+              <h3>{item.name}</h3>
+              <p>{item.tagline}</p>
+              <span class="index-card-link">Explore {item.name} &rarr;</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    )}
+    {posts.length > 0 && (
+      <>
+        <h2 class="article-section-heading">Latest articles</h2>
+        <div class="article-grid">
+          {posts.map((post) => (
+            <ArticleCard post={post} />
+          ))}
+        </div>
+      </>
+    )}
+  </section>
+</main>

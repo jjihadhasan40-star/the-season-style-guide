@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import MainCategoryLanding from "../../components/MainCategoryLanding.astro";
+import { holidayCategories } from "../../data/categoryStructure.js";
+import { postsInCategory, sortByDateDesc } from "../../utils/blog.js";
+
+export function getStaticPaths() {
+  return holidayCategories.map((category) => ({
+    params: { slug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const posts = sortByDateDesc(postsInCategory(await getCollection("blog"), category.name));
+---
+<SiteLayout title={category.name} description={category.tagline} active="holidays">
+  <MainCategoryLanding
+    category={category}
+    sectionLabel="Holidays & Seasons"
+    sectionHref="/holidays/"
+    basePath="/holidays/"
+    posts={posts}
+  />
+</SiteLayout>

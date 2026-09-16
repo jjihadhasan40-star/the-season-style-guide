@@ -1,0 +1,89 @@
+---
+import ArticleCard from "./ArticleCard.astro";
+import Breadcrumbs from "./Breadcrumbs.astro";
+import { onImgError } from "../utils/images.js";
+
+export interface Post {
+  id: string;
+  data: {
+    title: string;
+    description: string;
+    date: Date;
+    category: string;
+    subcategory?: string;
+    image: string;
+  };
+}
+
+export interface Props {
+  name: string;
+  sectionLabel: string;
+  sectionHref: string;
+  intro: string;
+  heroImg: string;
+  posts: Post[];
+  popularPosts?: Post[];
+}
+
+const { name, sectionLabel, sectionHref, intro, heroImg, posts, popularPosts = [] } = Astro.props;
+const trail = [
+  { label: "Home", href: "/" },
+  ...(sectionLabel === name ? [] : [{ label: sectionLabel, href: sectionHref }]),
+  { label: name },
+];
+---
+
+<section class="page-hero">
+  <div class="page-hero-media" aria-hidden="true">
+    <img src={heroImg} alt="" onerror={onImgError} />
+    <div class="page-hero-scrim"></div>
+  </div>
+  <div class="page-hero-content">
+    <Breadcrumbs trail={trail} />
+    <p class="kicker">{sectionLabel}</p>
+    <h1>{name}</h1>
+    <p>{intro}</p>
+  </div>
+</section>
+
+<main>
+  <section class="section">
+    <p class="intro-copy">{intro}</p>
+
+    <div class="section-head">
+      <div><h2>Latest articles</h2></div>
+    </div>
+    {posts.length > 0 ? (
+      <div class="article-grid">
+        {posts.map((post) => <ArticleCard post={post} />)}
+      </div>
+    ) : (
+      <p class="archive-empty">New {name} articles are on the way — check back soon.</p>
+    )}
+
+    <section class="popular-now" aria-labelledby="popular-now-heading">
+      <div class="section-head">
+        <div><h2 id="popular-now-heading">Popular Now</h2></div>
+      </div>
+      {popularPosts.length > 0 ? (
+        <div class="article-grid">
+          {popularPosts.map((post) => <ArticleCard post={post} />)}
+        </div>
+      ) : (
+        <p class="archive-empty">Popular articles will appear here as readership data becomes available.</p>
+      )}
+    </section>
+  </section>
+</main>
+
+<style>
+  .popular-now {
+    margin-top: 5rem;
+    padding-top: 3.5rem;
+    border-top: 1px solid rgba(90, 79, 71, 0.2);
+  }
+  .archive-empty {
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+</style>

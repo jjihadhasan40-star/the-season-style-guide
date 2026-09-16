@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import CategoryArchive from "../../../components/CategoryArchive.astro";
+import { holidayCategories } from "../../../data/categoryStructure.js";
+import { postsInSubcategory, sortByDateDesc } from "../../../utils/blog.js";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return holidayCategories.flatMap((category) =>
+    category.subcategories.map((subcategory) => ({
+      params: { slug: category.slug, subcategory: subcategory.slug },
+      props: { category, subcategory, posts: sortByDateDesc(postsInSubcategory(posts, category.name, subcategory.name)) },
+    })),
+  );
+}
+
+const { category, subcategory, posts } = Astro.props;
+---
+<SiteLayout title={`${category.name} — ${subcategory.name}`} description={subcategory.tagline} active="holidays">
+  <CategoryArchive
+    name={subcategory.name}
+    sectionLabel={category.name}
+    sectionHref={`/holidays/${category.slug}/`}
+    intro={subcategory.tagline}
+    heroImg={subcategory.heroImg}
+    posts={posts}
+  />
+</SiteLayout>

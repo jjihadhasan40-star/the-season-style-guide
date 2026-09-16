@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800" role="img" aria-label="Cozy autumn evening with pumpkins on the ground">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1717"/>
+      <stop offset="0.52" stop-color="#473026"/>
+      <stop offset="1" stop-color="#a86638"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a261d"/>
+      <stop offset="1" stop-color="#171314"/>
+    </linearGradient>
+    <radialGradient id="windowGlow">
+      <stop offset="0" stop-color="#ffdca0" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#b55e2e" stop-opacity="0.2"/>
+    </radialGradient>
+    <radialGradient id="pumpkin" cx="35%" cy="25%">
+      <stop offset="0" stop-color="#f6b25c"/>
+      <stop offset="0.55" stop-color="#d66a2b"/>
+      <stop offset="1" stop-color="#87351f"/>
+    </radialGradient>
+    <filter id="softGlow"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="shadow"><feGaussianBlur stdDeviation="10"/></filter>
+  </defs>
+  <rect width="1600" height="800" fill="url(#sky)"/>
+  <ellipse cx="1200" cy="360" rx="330" ry="260" fill="url(#windowGlow)" filter="url(#softGlow)"/>
+  <path d="M850 0h750v500H850z" fill="#21191a" opacity=".7"/>
+  <path d="M1010 70h330v360H1010z" fill="#633c2b"/>
+  <path d="M1040 100h270v300H1040z" fill="#e39b52" opacity=".75"/>
+  <path d="M1175 100v300M1040 250h270" stroke="#3c2926" stroke-width="18"/>
+  <path d="M0 480c250-55 470-28 690-58 260-35 570-11 910 40v338H0z" fill="url(#ground)"/>
+  <path d="M0 590c260-44 430-22 700-58 280-37 580-6 900 44" fill="none" stroke="#60402b" stroke-width="18" opacity=".7"/>
+  <g fill="#9f6334" opacity=".8">
+    <ellipse cx="160" cy="590" rx="25" ry="8" transform="rotate(-20 160 590)"/>
+    <ellipse cx="350" cy="680" rx="34" ry="10" transform="rotate(18 350 680)"/>
+    <ellipse cx="760" cy="560" rx="30" ry="9" transform="rotate(-25 760 560)"/>
+    <ellipse cx="980" cy="690" rx="36" ry="10" transform="rotate(20 980 690)"/>
+  </g>
+  <g transform="translate(1030 460)">
+    <ellipse cx="145" cy="210" rx="195" ry="40" fill="#110f10" opacity=".65" filter="url(#shadow)"/>
+    <path d="M122 42c-8-34 13-56 42-66 11 29 4 54-23 73z" fill="#4f5d35"/>
+    <path d="M137 10c0-30 18-42 35-45" fill="none" stroke="#30271b" stroke-width="12" stroke-linecap="round"/>
+    <path d="M35 150c0-98 48-145 110-145s110 47 110 145c0 72-45 108-110 108S35 222 35 150z" fill="url(#pumpkin)"/>
+    <path d="M90 27c-34 57-30 162 12 210M153 8c-16 66-12 188 0 250M216 27c35 57 30 162-12 210" fill="none" stroke="#9b4524" stroke-width="18" opacity=".6"/>
+    <path d="M77 150c25-22 67-22 92 0-25 23-67 23-92 0z" fill="#ffcc70" opacity=".2"/>
+  </g>
+  <g transform="translate(1300 540) scale(.72)">
+    <ellipse cx="145" cy="210" rx="195" ry="40" fill="#110f10" opacity=".65" filter="url(#shadow)"/>
+    <path d="M122 42c-8-34 13-56 42-66 11 29 4 54-23 73z" fill="#4f5d35"/>
+    <path d="M137 10c0-30 18-42 35-45" fill="none" stroke="#30271b" stroke-width="12" stroke-linecap="round"/>
+    <path d="M35 150c0-98 48-145 110-145s110 47 110 145c0 72-45 108-110 108S35 222 35 150z" fill="url(#pumpkin)"/>
+    <path d="M90 27c-34 57-30 162 12 210M153 8c-16 66-12 188 0 250M216 27c35 57 30 162-12 210" fill="none" stroke="#9b4524" stroke-width="18" opacity=".6"/>
+  </g>
+  <g fill="#b86b35" opacity=".65">
+    <path d="M820 610c50-70 82-54 104-4-44-21-74 9-104 4z"/>
+    <path d="M670 735c52-75 84-50 103-8-42-16-70 15-103 8z"/>
+  </g>
+  <rect width="1600" height="800" fill="url(#sky)" opacity=".12"/>
+</svg>

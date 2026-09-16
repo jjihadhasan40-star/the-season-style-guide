@@ -1,0 +1,79 @@
+---
+// src/components/Footer.astro
+---
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="brand brand-light" href="/">
+        <img class="brand-logo" src="/logo.png" alt="The Season &amp; Style Guide" />
+      </a>
+      <p>
+        We're here to help you celebrate the seasons, special moments with
+        style, creativity and a little extra joy.
+      </p>
+      <a class="text-link text-link-light" href="/about/">Learn More &rarr;</a>
+    </div>
+
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/holidays-seasons/">Holidays &amp; Seasons</a></li>
+        <li><a href="/special-days/">Special Days</a></li>
+        <li><a href="/lifestyle/">Lifestyle</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-nav" aria-label="Legal">
+      <ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
+      </ul>
+    </nav>
+  </div>
+  <p class="footer-bottom">&copy; 2026 The Season &amp; Style Guide. All rights reserved.</p>
+</footer>
+
+<style>
+  .site-footer {
+    background: linear-gradient(150deg, #2c2440 0%, #4a3a4f 45%, #a6785a 100%);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 4rem 2rem 1.6rem;
+  }
+  .footer-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 2.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .brand-light { margin-bottom: 1rem; }
+  .brand-logo { width: 190px; height: auto; display: block; filter: brightness(0) invert(1); }
+  .footer-brand p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 34ch;
+    margin: 0 0 1rem;
+  }
+  .footer-nav ul { display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-nav a { font-size: 0.9rem; color: rgba(255, 255, 255, 0.78); }
+  .footer-nav a:hover { color: #fff; }
+  .footer-bottom {
+    max-width: var(--container);
+    margin: 1.6rem auto 0;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  @media (max-width: 860px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+  }
+  @media (max-width: 640px) {
+    .footer-inner { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CategoryIndex from "../../components/CategoryIndex.astro";
+import { specialDayCategories } from "../../data/categoryStructure.js";
+---
+<SiteLayout title="Special Days" active="special">
+  <CategoryIndex
+    kicker="Celebrate"
+    heading="Special Days"
+    intro="The milestones and everyday celebrations worth marking well â€” gift guides, hosting ideas, and thoughtful ways to show up for the people you love."
+    heroImg="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=80"
+    basePath="/special-days/"
+    breadcrumbLabel="Special Days"
+    items={specialDayCategories}
+  />
+</SiteLayout>

@@ -1,0 +1,105 @@
+---
+// src/components/ArticleCard.astro
+// Reusable editorial card: image, category, title, description, date.
+// Used on /blog/, /category/[category]/, and the related-articles section.
+import FormattedDate from "./FormattedDate.astro";
+import { onImgError } from "../utils/images.js";
+import { categoryHref, postHref, subcategoryHref } from "../utils/blog.js";
+
+export interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description: string;
+      date: Date;
+      category: string;
+      subcategory?: string;
+      image: string;
+    };
+  };
+}
+const { post } = Astro.props;
+const href = postHref(post);
+const categoryLink = post.data.subcategory
+  ? subcategoryHref(post.data.category, post.data.subcategory)
+  : categoryHref(post.data.category);
+---
+
+<article class="article-card">
+  <a class="article-card-media" href={href} aria-hidden="true" tabindex="-1">
+    <img src={post.data.image} alt="" loading="lazy" onerror={onImgError} />
+  </a>
+  <div class="article-card-body">
+    <a class="article-card-category" href={categoryLink}>
+      {post.data.subcategory ?? post.data.category}
+    </a>
+    <h3><a href={href}>{post.data.title}</a></h3>
+    <p>{post.data.description}</p>
+    <p class="article-card-date">
+      <FormattedDate date={post.data.date} />
+    </p>
+  </div>
+</article>
+
+<style>
+  .article-card {
+    background: var(--cream-card);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 18px 36px -26px rgba(42, 23, 8, 0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .article-card-media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--ivory-deep);
+  }
+  .article-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .article-card:hover .article-card-media img {
+    transform: scale(1.05);
+  }
+  .article-card-body {
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  .article-card-category {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--burnt-orange-deep);
+    font-weight: 600;
+  }
+  .article-card-category:hover {
+    text-decoration: underline;
+  }
+  .article-card-body h3 {
+    font-size: 1.15rem;
+    line-height: 1.35;
+    font-weight: 600;
+  }
+  .article-card-body p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .article-card-date {
+    margin-top: auto !important;
+    padding-top: 0.4rem;
+    font-size: 0.8rem !important;
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+</style>

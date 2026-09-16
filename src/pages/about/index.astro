@@ -1,0 +1,42 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { onImgError } from "../../utils/images.js";
+---
+<SiteLayout title="About" active="about">
+  <section class="page-hero">
+    <div class="page-hero-media" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80"
+        alt=""
+        onerror={onImgError}
+      />
+      <div class="page-hero-scrim"></div>
+    </div>
+    <div class="page-hero-content">
+      <p class="kicker">About Us</p>
+      <h1>The Season &amp; Style Guide</h1>
+      <p>A premium destination for holidays, seasons, and the everyday moments worth celebrating well.</p>
+    </div>
+  </section>
+
+  <main>
+    <section class="section" style="max-width: 780px;">
+      <p class="intro-copy">
+        The Season &amp; Style Guide is a US-focused editorial home for the
+        way people actually live through the year â€” from the first porch
+        pumpkin in October to the last backyard dinner in September. We
+        cover holidays, seasons, and life's special moments with the same
+        care a magazine would give any of them: real ideas, real recipes,
+        and design that doesn't feel disposable.
+      </p>
+      <p class="intro-copy">
+        Whether you're planning a holiday table, a milestone celebration,
+        or simply refreshing a room for the season ahead, our goal is the
+        same â€” thoughtful, well-styled inspiration you'll actually use.
+      </p>
+      <a class="btn btn-primary" href="/holidays-seasons/" style="background: var(--burnt-orange); color: #fff;">
+        Start Exploring
+      </a>
+    </section>
+  </main>
+</SiteLayout>

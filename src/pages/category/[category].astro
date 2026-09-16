@@ -1,0 +1,49 @@
+---
+// src/pages/category/[category].astro
+// One page per distinct blog category, generated automatically from
+// whatever categories exist in src/content/blog — add a new category to a
+// post's frontmatter and its page appears with no code changes.
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CategoryArchive from "../../components/CategoryArchive.astro";
+import { categorySlug, collectCategories, postsInCategory, sortByDateDesc } from "../../utils/blog.js";
+
+// Reuses the same hero photography as the matching section landing page for
+// visual continuity; falls back to a neutral editorial image for any custom
+// category that doesn't match one of the three main content areas.
+const HERO_IMAGES: Record<string, string> = {
+  "holidays-seasons": "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?auto=format&fit=crop&w=1600&q=80",
+  "special-days": "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=80",
+  "lifestyle": "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80",
+};
+const DEFAULT_HERO_IMAGE = "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=1600&q=80";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  const categories = collectCategories(posts);
+  return categories.map((cat) => ({
+    params: { category: cat.slug },
+    props: { categoryName: cat.name },
+  }));
+}
+
+const { categoryName } = Astro.props;
+const heroImage = HERO_IMAGES[categorySlug(categoryName)] ?? DEFAULT_HERO_IMAGE;
+const allPosts = await getCollection("blog");
+const posts = sortByDateDesc(postsInCategory(allPosts, categoryName));
+---
+
+<SiteLayout
+  title={categoryName}
+  description={`Articles in ${categoryName} from The Season & Style Guide.`}
+  active="home"
+>
+  <CategoryArchive
+    name={categoryName}
+    sectionLabel="Blog Category"
+    sectionHref="/blog/"
+    intro={`Articles in ${categoryName} from The Season & Style Guide.`}
+    heroImg={heroImage}
+    posts={posts}
+  />
+</SiteLayout>

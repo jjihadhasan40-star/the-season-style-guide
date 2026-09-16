@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CategoryIndex from "../../components/CategoryIndex.astro";
+import { lifestyleCategories } from "../../data/categoryStructure.js";
+import { categorySlug, sortByDateDesc } from "../../utils/blog.js";
+
+const lifestyleCategorySlugs = new Set([
+  "lifestyle",
+  ...lifestyleCategories.map((category) => categorySlug(category.name)),
+]);
+const posts = sortByDateDesc(
+  (await getCollection("blog")).filter((post) => lifestyleCategorySlugs.has(categorySlug(post.data.category))),
+);
+---
+<SiteLayout title="Lifestyle" active="lifestyle">
+  <CategoryIndex
+    kicker="Living Well"
+    heading="Lifestyle"
+    intro="Home, fashion, food, and beauty â€” for a more inspired everyday, whatever the season."
+    heroImg="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80"
+    basePath="/lifestyle/"
+    breadcrumbLabel="Lifestyle"
+    items={[]}
+    showItems={false}
+    posts={posts}
+  />
+</SiteLayout>

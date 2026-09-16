@@ -1,0 +1,9 @@
+---
+import { holidayCategories } from "../../data/categoryStructure.js";
+
+export function getStaticPaths() {
+  return holidayCategories.map((category) => ({ params: { slug: category.slug } }));
+}
+
+return Astro.redirect(`/holidays/${Astro.params.slug}/`);
+---
