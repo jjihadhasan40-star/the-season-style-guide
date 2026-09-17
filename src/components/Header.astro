@@ -1,28 +1,30 @@
 ---
 // src/components/Header.astro
+import { withBase } from "../utils/blog.js";
+
 export interface Props {
   active?: "home" | "holidays" | "special" | "lifestyle" | "about";
 }
 const { active = "" } = Astro.props;
 
 const nav = [
-  { key: "home", label: "Home", href: "/" },
+  { key: "home", label: "Home", href: withBase("/") },
   {
     key: "holidays",
     label: "Holidays & Seasons",
-    href: "/holidays/",
+    href: withBase("/holidays/"),
   },
   {
     key: "special",
     label: "Special Days",
-    href: "/special-days/",
+    href: withBase("/special-days/"),
   },
   {
     key: "lifestyle",
     label: "Lifestyle",
-    href: "/lifestyle/",
+    href: withBase("/lifestyle/"),
   },
-  { key: "about", label: "About", href: "/about/" },
+  { key: "about", label: "About", href: withBase("/about/") },
 ];
 ---
 
@@ -33,8 +35,8 @@ const nav = [
       <span></span>
       <span></span>
     </button>
-    <a class="brand" href="/">
-      <img class="brand-logo" src="/logo.png" alt="The Season &amp; Style Guide" />
+    <a class="brand" href={withBase("/")}>
+      <img class="brand-logo" src={withBase("/logo.png")} alt="The Season &amp; Style Guide" />
     </a>
     <nav class="main-nav" aria-label="Primary">
       <ul>
@@ -54,7 +56,7 @@ const nav = [
           <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </button>
-      <form id="site-search" class="search-form" action="/search/" method="get" hidden>
+      <form id="site-search" class="search-form" action={withBase("/search/")} method="get" hidden>
         <label class="sr-only" for="site-search-input">Search articles</label>
         <input id="site-search-input" name="q" type="search" placeholder="Search articles" autocomplete="off" />
         <button type="submit">Search</button>

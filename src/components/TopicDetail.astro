@@ -3,6 +3,7 @@
 // Renders an individual topic page (e.g. /holidays-seasons/halloween/)
 import Breadcrumbs from "./Breadcrumbs.astro";
 import { onImgError } from "../utils/images.js";
+import { withBase } from "../utils/blog.js";
 
 export interface Topic {
   slug: string;
@@ -22,7 +23,7 @@ export interface Props {
 const { topic, sectionLabel, sectionHref, related, basePath } = Astro.props;
 
 const trail = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: withBase("/") },
   { label: sectionLabel, href: sectionHref },
   { label: topic.name },
 ];

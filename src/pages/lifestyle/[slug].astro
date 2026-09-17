@@ -16,7 +16,7 @@ const { category } = Astro.props;
   <MainCategoryLanding
     category={category}
     sectionLabel="Lifestyle"
-    sectionHref="/lifestyle/"
-    basePath="/lifestyle/"
+    sectionHref={import.meta.env.BASE_URL + "lifestyle/"}
+    basePath={import.meta.env.BASE_URL + "lifestyle/"}
   />
 </SiteLayout>

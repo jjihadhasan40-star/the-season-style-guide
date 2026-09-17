@@ -21,7 +21,7 @@ const { category, subcategory, posts } = Astro.props;
   <CategoryArchive
     name={subcategory.name}
     sectionLabel={category.name}
-    sectionHref={`/lifestyle/${category.slug}/`}
+    sectionHref={import.meta.env.BASE_URL + `lifestyle/${category.slug}/`}
     intro={subcategory.tagline}
     heroImg={subcategory.heroImg}
     posts={posts}

@@ -3,8 +3,10 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { onImgError } from "../../utils/images.js";
 
+import { withBase } from "../../utils/blog.js";
+
 const trail = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: withBase("/") },
   { label: "Privacy Policy" },
 ];
 ---
@@ -46,7 +48,7 @@ const trail = [
         The site may use necessary cookies or privacy-conscious analytics tools. Articles
         may also link to other websites with their own policies. Please review those policies
         before sharing information with an external service. Questions about this policy can
-        be sent through our <a class="text-link" href="/contact/">Contact page</a>.
+        be sent through our <a class="text-link" href={withBase("/contact/")}>Contact page</a>.
       </p>
     </section>
   </main>

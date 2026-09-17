@@ -3,8 +3,10 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { onImgError } from "../../utils/images.js";
 
+import { withBase } from "../../utils/blog.js";
+
 const trail = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: withBase("/") },
   { label: "Contact" },
 ];
 ---

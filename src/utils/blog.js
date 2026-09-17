@@ -1,6 +1,12 @@
 // src/utils/blog.js
 // Shared helpers for the blog/editorial system.
 
+export function withBase(path = "/") {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  return `${base}${normalizedPath}`;
+}
+
 /**
  * Turns a category name from frontmatter (e.g. "Holidays & Seasons") into a
  * clean, SEO-friendly URL slug (e.g. "holidays-seasons").
@@ -55,40 +61,40 @@ export function getRelatedPosts(current, allPosts, limit = 3) {
 
 /** Builds the canonical article URL for a post (e.g. "/blog/my-post/"). */
 export function postHref(post) {
-  return `/blog/${post.id}/`;
+  return withBase(`/blog/${post.id}/`);
 }
 
 /** Builds the canonical category URL used by the site's main category pages. */
 export function categoryHref(category) {
   const slug = categorySlug(category);
   const mainCategoryPaths = {
-    "holidays-seasons": "/holidays/",
-    holidays: "/holidays/",
-    "special-days": "/special-days/",
-    lifestyle: "/lifestyle/",
-    halloween: "/holidays/halloween/",
-    thanksgiving: "/holidays/thanksgiving/",
-    christmas: "/holidays/christmas/",
-    easter: "/holidays/easter/",
-    "valentines-day": "/special-days/valentines-day/",
-    fall: "/holidays/fall/",
-    winter: "/holidays-seasons/winter/",
-    spring: "/holidays-seasons/spring/",
-    summer: "/holidays-seasons/summer/",
-    "mothers-day": "/special-days/mothers-day/",
-    "fathers-day": "/special-days/fathers-day/",
-    birthday: "/special-days/birthday/",
-    graduation: "/special-days/graduation/",
-    home: "/lifestyle/home/",
-    food: "/lifestyle/food-recipes/",
-    fashion: "/lifestyle/fashion-beauty/",
-    beauty: "/lifestyle/fashion-beauty/",
-    "food-recipes": "/lifestyle/food-recipes/",
-    "fashion-beauty": "/lifestyle/fashion-beauty/",
-    wellness: "/lifestyle/wellness/",
-    entertaining: "/lifestyle/entertaining/",
+    "holidays-seasons": withBase("/holidays/"),
+    holidays: withBase("/holidays/"),
+    "special-days": withBase("/special-days/"),
+    lifestyle: withBase("/lifestyle/"),
+    halloween: withBase("/holidays/halloween/"),
+    thanksgiving: withBase("/holidays/thanksgiving/"),
+    christmas: withBase("/holidays/christmas/"),
+    easter: withBase("/holidays/easter/"),
+    "valentines-day": withBase("/special-days/valentines-day/"),
+    fall: withBase("/holidays/fall/"),
+    winter: withBase("/holidays-seasons/winter/"),
+    spring: withBase("/holidays-seasons/spring/"),
+    summer: withBase("/holidays-seasons/summer/"),
+    "mothers-day": withBase("/special-days/mothers-day/"),
+    "fathers-day": withBase("/special-days/fathers-day/"),
+    birthday: withBase("/special-days/birthday/"),
+    graduation: withBase("/special-days/graduation/"),
+    home: withBase("/lifestyle/home/"),
+    food: withBase("/lifestyle/food-recipes/"),
+    fashion: withBase("/lifestyle/fashion-beauty/"),
+    beauty: withBase("/lifestyle/fashion-beauty/"),
+    "food-recipes": withBase("/lifestyle/food-recipes/"),
+    "fashion-beauty": withBase("/lifestyle/fashion-beauty/"),
+    wellness: withBase("/lifestyle/wellness/"),
+    entertaining: withBase("/lifestyle/entertaining/"),
   };
-  return mainCategoryPaths[slug] ?? `/category/${slug}/`;
+  return mainCategoryPaths[slug] ?? withBase(`/category/${slug}/`);
 }
 
 /** Builds the canonical subcategory URL for a categorized article. */

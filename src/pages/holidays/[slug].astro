@@ -19,8 +19,8 @@ const posts = sortByDateDesc(postsInCategory(await getCollection("blog"), catego
   <MainCategoryLanding
     category={category}
     sectionLabel="Holidays & Seasons"
-    sectionHref="/holidays/"
-    basePath="/holidays/"
+    sectionHref={import.meta.env.BASE_URL + "holidays/"}
+    basePath={import.meta.env.BASE_URL + "holidays/"}
     posts={posts}
   />
 </SiteLayout>

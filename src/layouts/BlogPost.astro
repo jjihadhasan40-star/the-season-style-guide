@@ -8,7 +8,7 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import { onImgError } from "../utils/images.js";
-import { categoryHref, getRelatedPosts, postHref, sortByDateAsc, subcategoryHref } from "../utils/blog.js";
+import { categoryHref, getRelatedPosts, postHref, sortByDateAsc, subcategoryHref, withBase } from "../utils/blog.js";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -31,8 +31,8 @@ const nextPost =
     : undefined;
 
 const trail = [
-  { label: "Home", href: "/" },
-  { label: "Blog", href: "/blog/" },
+  { label: "Home", href: withBase("/") },
+  { label: "Blog", href: withBase("/blog/") },
   { label: subcategory ?? category, href: categoryLink },
   { label: title },
 ];
@@ -94,7 +94,7 @@ const trail = [
             <p class="kicker">Keep Reading</p>
             <h2>Related Articles</h2>
           </div>
-          <a class="view-all" href="/blog/">View All &rarr;</a>
+          <a class="view-all" href={withBase("/blog/")}>View All &rarr;</a>
         </div>
         <div class="article-grid">
           {related.map((r) => (

@@ -41,7 +41,7 @@ const posts = sortByDateDesc(postsInCategory(allPosts, categoryName));
   <CategoryArchive
     name={categoryName}
     sectionLabel="Blog Category"
-    sectionHref="/blog/"
+    sectionHref={import.meta.env.BASE_URL + "blog/"}
     intro={`Articles in ${categoryName} from The Season & Style Guide.`}
     heroImg={heroImage}
     posts={posts}

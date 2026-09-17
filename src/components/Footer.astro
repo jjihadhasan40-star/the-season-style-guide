@@ -1,34 +1,36 @@
 ---
 // src/components/Footer.astro
 ---
+import { withBase } from "../utils/blog.js";
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <a class="brand brand-light" href="/">
-        <img class="brand-logo" src="/logo.png" alt="The Season &amp; Style Guide" />
+      <a class="brand brand-light" href={withBase("/")}>
+        <img class="brand-logo" src={withBase("/logo.png")} alt="The Season &amp; Style Guide" />
       </a>
       <p>
         We're here to help you celebrate the seasons, special moments with
         style, creativity and a little extra joy.
       </p>
-      <a class="text-link text-link-light" href="/about/">Learn More &rarr;</a>
+      <a class="text-link text-link-light" href={withBase("/about/")}>Learn More &rarr;</a>
     </div>
 
     <nav class="footer-nav" aria-label="Footer">
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/holidays-seasons/">Holidays &amp; Seasons</a></li>
-        <li><a href="/special-days/">Special Days</a></li>
-        <li><a href="/lifestyle/">Lifestyle</a></li>
+        <li><a href={withBase("/")}>Home</a></li>
+        <li><a href={withBase("/holidays/")}>Holidays &amp; Seasons</a></li>
+        <li><a href={withBase("/special-days/")}>Special Days</a></li>
+        <li><a href={withBase("/lifestyle/")}>Lifestyle</a></li>
       </ul>
     </nav>
 
     <nav class="footer-nav" aria-label="Legal">
       <ul>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/contact/">Contact</a></li>
-        <li><a href="/privacy-policy/">Privacy Policy</a></li>
-        <li><a href="/affiliate-disclosure/">Affiliate Disclosure</a></li>
+        <li><a href={withBase("/about/")}>About</a></li>
+        <li><a href={withBase("/contact/")}>Contact</a></li>
+        <li><a href={withBase("/privacy-policy/")}>Privacy Policy</a></li>
+        <li><a href={withBase("/affiliate-disclosure/")}>Affiliate Disclosure</a></li>
       </ul>
     </nav>
   </div>

@@ -9,7 +9,7 @@ import { holidayCategories } from "../../data/categoryStructure.js";
     heading="Holidays & Seasons"
     intro="Seasonal celebrations, thoughtful hosting, and fresh ideas for every holiday and season."
     heroImg="https://images.unsplash.com/photo-1509557965875-b88c97052f0e?auto=format&fit=crop&w=1600&q=80"
-    basePath="/holidays/"
+    basePath={import.meta.env.BASE_URL + "holidays/"}
     breadcrumbLabel="Holidays & Seasons"
     items={holidayCategories}
   />

@@ -13,7 +13,7 @@ export async function GET(context) {
 			description: post.data.description,
 			pubDate: post.data.date,
 			categories: [post.data.category],
-			link: `/blog/${post.id}/`,
+			link: `${import.meta.env.BASE_URL}blog/${post.id}/`,
 		})),
 	});
 }

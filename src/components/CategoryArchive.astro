@@ -2,6 +2,7 @@
 import ArticleCard from "./ArticleCard.astro";
 import Breadcrumbs from "./Breadcrumbs.astro";
 import { onImgError } from "../utils/images.js";
+import { withBase } from "../utils/blog.js";
 
 export interface Post {
   id: string;
@@ -27,7 +28,7 @@ export interface Props {
 
 const { name, sectionLabel, sectionHref, intro, heroImg, posts, popularPosts = [] } = Astro.props;
 const trail = [
-  { label: "Home", href: "/" },
+  { label: "Home", href: withBase("/") },
   ...(sectionLabel === name ? [] : [{ label: sectionLabel, href: sectionHref }]),
   { label: name },
 ];

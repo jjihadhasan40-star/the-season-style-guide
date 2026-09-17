@@ -1,4 +1,5 @@
 import { holidaySeasons, lifestyleTopics, specialDays } from "./topics.js";
+import { withBase } from "../utils/blog.js";
 
 const subcategorySets = {
   halloween: [
@@ -127,17 +128,17 @@ export const lifestyleCategories = lifestyleTopics.map(withSubcategories);
 export const categorySections = {
   holidays: {
     label: "Holidays & Seasons",
-    href: "/holidays/",
+    href: withBase("/holidays/"),
     categories: holidayCategories,
   },
   specialDays: {
     label: "Special Days",
-    href: "/special-days/",
+    href: withBase("/special-days/"),
     categories: specialDayCategories,
   },
   lifestyle: {
     label: "Lifestyle",
-    href: "/lifestyle/",
+    href: withBase("/lifestyle/"),
     categories: lifestyleCategories,
   },
 };

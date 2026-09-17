@@ -2,6 +2,7 @@
 import SiteLayout from "../../layouts/SiteLayout.astro";
 import { getCollection } from "astro:content";
 import { holidaySeasons, lifestyleTopics, specialDays } from "../../data/topics.js";
+import { withBase } from "../../utils/blog.js";
 
 const posts = await getCollection("blog");
 
@@ -9,19 +10,19 @@ const categoryEntries = [
   {
     title: "Holidays & Seasons",
     description: "Year-round ideas for holidays, seasonal decorating, food, and style.",
-    href: "/holidays-seasons/",
+    href: withBase("/holidays/"),
     terms: "holidays seasons",
   },
   {
     title: "Special Days",
     description: "Thoughtful ideas for milestones, gatherings, gifts, and celebrations.",
-    href: "/special-days/",
+    href: withBase("/special-days/"),
     terms: "special days",
   },
   {
     title: "Lifestyle",
     description: "Practical inspiration for home, food, fashion, and everyday living.",
-    href: "/lifestyle/",
+    href: withBase("/lifestyle/"),
     terms: "lifestyle",
   },
 ];
@@ -30,7 +31,7 @@ const topicEntries = [
   ...holidaySeasons.map((topic) => ({
     title: topic.name,
     description: topic.tagline,
-    href: `/holidays-seasons/${topic.slug}/`,
+    href: withBase(`/holidays/${topic.slug}/`),
     terms: [
       topic.name,
       topic.tagline,
@@ -44,7 +45,7 @@ const topicEntries = [
   ...specialDays.map((topic) => ({
     title: topic.name,
     description: topic.tagline,
-    href: `/special-days/${topic.slug}/`,
+    href: withBase(`/special-days/${topic.slug}/`),
     terms: [
       topic.name,
       topic.tagline,
@@ -58,7 +59,7 @@ const topicEntries = [
   ...lifestyleTopics.map((topic) => ({
     title: topic.name,
     description: topic.tagline,
-    href: `/lifestyle/${topic.slug}/`,
+    href: withBase(`/lifestyle/${topic.slug}/`),
     terms: [
       topic.name,
       topic.tagline,
@@ -74,7 +75,7 @@ const topicEntries = [
 const articleEntries = posts.map((post) => ({
   title: post.data.title,
   description: post.data.description,
-  href: `/blog/${post.id}/`,
+  href: withBase(`/blog/${post.id}/`),
   terms: [post.data.title, post.data.description].join(" "),
 }));
 
@@ -93,7 +94,7 @@ const query = Astro.url.searchParams.get("q")?.trim() ?? "";
 
   <main>
     <section class="section search-section">
-      <form class="search-page-form" action="/search/" method="get">
+      <form class="search-page-form" action={withBase("/search/")} method="get">
         <label for="search-page-input">Search the guide</label>
         <div class="search-page-controls">
           <input

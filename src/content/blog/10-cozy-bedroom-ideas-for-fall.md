@@ -59,4 +59,4 @@ The easiest way to make disparate pieces feel intentional is a consistent, narro
 
 ---
 
-Looking for more ways to bring the season indoors? Take a look at our [Fall guide](/holidays-seasons/fall/) for decor, food, and style ideas beyond the bedroom, or browse the rest of our [Lifestyle](/lifestyle/) coverage for year-round inspiration.
+Looking for more ways to bring the season indoors? Take a look at our [Fall guide](../../holidays/fall/) for decor, food, and style ideas beyond the bedroom, or browse the rest of our [Lifestyle](../../lifestyle/) coverage for year-round inspiration.
