@@ -3,7 +3,6 @@ title: "Top 10 Halloween Decor Ideas for a Stylish and Spooky Home"
 description: "Create a Halloween home that feels spooky, warm, and beautifully styled with these 10 simple decorating ideas."
 date: "2026-09-16"
 category: "Halloween"
-subcategory: "Decor"
 image: ""
 author: "The Season & Style Guide"
 featured: false

@@ -3,7 +3,7 @@ title: "10 Cozy Bedroom Ideas for Fall"
 description: "Simple ways to make your bedroom feel warmer and more inviting this fall."
 date: "2026-09-16"
 category: "Home"
-subcategory: "Decor"
+
 image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1600&q=80"
 author: "The Season & Style Guide Editors"
 featured: true
